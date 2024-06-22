@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Docker Container Steuerung</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; }
+        button { margin: 10px 0; padding: 10px; }
+    </style>
+</head>
+<body>
+    <h1>Docker Container</h1>
+    <div id="status">Status: Loading...</div>
+    <button onclick="startContainer()">Start Container</button>
+    <button onclick="stopContainer()">Stop Container</button>
+
+    <script>
+        function updateStatus() {
+            fetch('/status')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('status').textContent = `Status: ${data.status}`;
+                })
+                .catch(error => console.error('Error:', error));
+        }
+
+        function startContainer() {
+            fetch('/start', { method: 'POST' })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data.message);
+                    updateStatus();
+                })
+                .catch(error => console.error('Error:', error));
+        }
+
+        function stopContainer() {
+            fetch('/stop', { method: 'POST' })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data.message);
+                    updateStatus();
+                })
+                .catch(error => console.error('Error:', error));
+        }
+
+        setInterval(updateStatus, 5000);
+        updateStatus();
+    </script>
+</body>
+</html>
