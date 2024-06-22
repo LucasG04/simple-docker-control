@@ -1,9 +1,9 @@
 #!/bin/bash
 
 IMAGE_NAME="lucasg04/simple-docker-control"
-IMAGE_VERSION="$2"
+IMAGE_VERSION="$1"
 
-If [ -z "$IMAGE_VERSION" ]; then
+if [ -z "$IMAGE_VERSION" ]; then
     echo "Please provide a version for the image"
     exit 1
 fi
