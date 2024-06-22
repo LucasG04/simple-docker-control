@@ -14,6 +14,8 @@ services:
     restart: unless-stopped
     ports:
       - 3000:3000
+    environment:
+      - CONTAINER_NAME=mycontainer
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
 ```
