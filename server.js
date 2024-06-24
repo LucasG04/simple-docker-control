@@ -44,6 +44,10 @@ app.post('/stop', async (req, res) => {
     }
 });
 
+app.get('/custom-message', async (req, res) => {
+    res.json({ message: process.env.CUSTOM_MESSAGE ?? '' })
+});
+
 app.listen(port, () => {
     console.log(`Server runs on http://localhost:${port}`);
 });

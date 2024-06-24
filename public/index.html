@@ -7,6 +7,7 @@
     <style>
         body { font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; }
         button { margin: 10px 0; padding: 10px; }
+        p { margin-top: 20px; }
     </style>
 </head>
 <body>
@@ -14,6 +15,7 @@
     <div id="status">Status: Loading...</div>
     <button onclick="startContainer()">Start Container</button>
     <button onclick="stopContainer()">Stop Container</button>
+    <p id="custom-message"></p>
 
     <script>
         function updateStatus() {
@@ -45,8 +47,19 @@
                 .catch(error => console.error('Error:', error));
         }
 
+        function fetchCustomMessage() {
+            fetch('/custom-message', { method: 'GET' })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data.message);
+                    document.getElementById('custom-message').textContent = data.message;
+                })
+                .catch(error => console.error('Error:', error));
+        }
+
         setInterval(updateStatus, 5000);
         updateStatus();
+        fetchCustomMessage();
     </script>
 </body>
 </html>
